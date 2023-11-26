@@ -110,8 +110,50 @@ from star.DimEmployee
 select *
 from star.DimDate
 
+select distinct *
+from star.DimGenre
+
 ---
-select *
+select GenreId, FullDate, fs.InvoiceId , SumPrice, MonthOfYear , Quarter , Year
 from star.FactGenre as fg
+join star.FactSales as fs
+on fs.InvoiceDateID = fg.OrderDateID
 join star.DimDate as dd
 on fg.OrderDateID = dd.DateID
+
+--- Date
+select GenreId, FullDate, count(fs.InvoiceId) as 'Total Invoices' , sum(SumPrice) as 'Total Sales'
+from star.FactGenre as fg
+join star.FactSales as fs
+on fs.InvoiceDateID = fg.OrderDateID
+join star.DimDate as dd
+on fg.OrderDateID = dd.DateID
+group by GenreId, FullDate
+order by GenreId, FullDate
+--- Month
+select GenreId, MonthOfYear, count(fs.InvoiceId) as 'Total Invoices' , sum(SumPrice) as 'Total Sales'
+from star.FactGenre as fg
+join star.FactSales as fs
+on fs.InvoiceDateID = fg.OrderDateID
+join star.DimDate as dd
+on fg.OrderDateID = dd.DateID
+group by GenreId, MonthOfYear
+order by GenreId, MonthOfYear
+--- Quarter
+select GenreId, Quarter, count(fs.InvoiceId) as 'Total Invoices' , sum(SumPrice) as 'Total Sales'
+from star.FactGenre as fg
+join star.FactSales as fs
+on fs.InvoiceDateID = fg.OrderDateID
+join star.DimDate as dd
+on fg.OrderDateID = dd.DateID
+group by GenreId, Quarter
+order by GenreId, Quarter
+--- Year
+select GenreId, Year, count(fs.InvoiceId) as 'Total Invoices' , sum(SumPrice) as 'Total Sales'
+from star.FactGenre as fg
+join star.FactSales as fs
+on fs.InvoiceDateID = fg.OrderDateID
+join star.DimDate as dd
+on fg.OrderDateID = dd.DateID
+group by GenreId, Year
+order by GenreId, Year
