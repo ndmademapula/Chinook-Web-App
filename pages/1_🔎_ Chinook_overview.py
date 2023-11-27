@@ -14,6 +14,7 @@ def init_connection():
         + st.secrets["server"]
         + ";DATABASE="
         + st.secrets["database"]
+        + ";Trusted_Connection=no;"
         + ";UID="
         + st.secrets["username"]
         + ";PWD="
@@ -25,12 +26,12 @@ conn = init_connection()
 # Uses st.cache_data to only rerun when the query changes or after 10 min.
 @st.cache_data(ttl=600)
 # def run_query(query,_conn):
+#     with _conn.cursor() as cur:
+#         cur.execute(query)
+#         data = pd.DataFrame(cur.fetchall())
+#         data.columns = cur.keys()
+#         return data
 def run_query(query):
-    # with _conn.cursor() as cur:
-    #     cur.execute(query)
-    #     data = pd.DataFrame(cur.fetchall())
-    #     data.columns = cur.column_names
-    #     return data
     data = pd.read_sql(query, conn)
     return data
 
