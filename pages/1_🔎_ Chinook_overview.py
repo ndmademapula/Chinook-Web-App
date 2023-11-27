@@ -21,7 +21,6 @@ def init_connection():
         + st.secrets["password"]
     )
 
-conn = init_connection()
 # Perform query.
 # Uses st.cache_data to only rerun when the query changes or after 10 min.
 @st.cache_data(ttl=600)
@@ -32,6 +31,7 @@ conn = init_connection()
 #         data.columns = cur.keys()
 #         return data
 def run_query(query):
+    conn = init_connection()
     data = pd.read_sql(query, conn)
     return data
 
