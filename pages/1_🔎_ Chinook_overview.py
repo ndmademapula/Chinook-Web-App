@@ -10,8 +10,8 @@ st.warning("Viết giới thiệu datasets cách ETL, tạo cube, và descriptio
 @st.cache_resource
 def init_connection():
     return pyodbc.connect(
-        "DRIVER={ODBC Driver 17 for SQL Server};SERVER="
-        + st.secrets["server"]
+        "DRIVER={ODBC Driver 17 for SQL Server};SERVER=192.168.0.122,1433"
+        # + st.secrets["server"]
         + ";DATABASE="
         + st.secrets["database"]
         + ";Trusted_Connection=no;"
