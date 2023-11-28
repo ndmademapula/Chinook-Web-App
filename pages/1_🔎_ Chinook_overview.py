@@ -7,11 +7,11 @@ from PIL import Image
 st.set_page_config(layout="wide")
 st.title("Chinook Dataset Overview")
 st.warning("Viết giới thiệu datasets cách ETL, tạo cube, và description cho từng table, visualize table (nếu t siêng)")
-# @st.cache_resource
+@st.cache_resource
 def init_connection():
     return pyodbc.connect(
-        "DRIVER={ODBC Driver 17 for SQL Server};SERVER=192.168.0.122,1433"
-        # + st.secrets["server"]
+        "DRIVER={ODBC Driver 17 for SQL Server};SERVER="
+        + st.secrets["server"]
         + ";DATABASE="
         + st.secrets["database"]
         # + ";Trusted_Connection=yes;"
@@ -23,7 +23,7 @@ def init_connection():
 
 # Perform query.
 # Uses st.cache_data to only rerun when the query changes or after 10 min.
-# @st.cache_data(ttl=600)
+@st.cache_data(ttl=600)
 # def run_query(query,_conn):
 #     with _conn.cursor() as cur:
 #         cur.execute(query)
